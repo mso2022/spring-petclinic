@@ -17,5 +17,19 @@ pipeline {
       }
     }
 
+    stage('Unit Tests') {
+      agent {
+        docker {
+          image 'maven:latest'
+          args '--network host -v $HOME/.m2:/root/.m2'
+        }
+
+      }
+      steps {
+        sh 'mvn test'
+        junit '**/target/surefire-reports/TEST-*.xml'
+      }
+    }
+
   }
 }
