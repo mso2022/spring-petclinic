@@ -28,6 +28,7 @@ pipeline {
       steps {
         sh 'mvn test'
         junit '**/target/surefire-reports/TEST-*.xml'
+        jacoco(changeBuildStatus: true, minimumLineCoverage: '10', runAlways: true)
       }
     }
 
