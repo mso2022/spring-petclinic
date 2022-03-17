@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: petclinic-deployment
+ namespace: jenkins
+ labels:
+    app: petclinic
+    type: springboot
+spec:
+ template:
+    metadata:
+     name: petclinic-pod
+     labels:
+        app: petclinic
+    spec:
+     containers:
+        - name: react-app-bmi
+          image: mitesh51/ms-petclinic:1.0 
+ replicas: 1
+ 
+ selector: 
+    matchLabels:
+        app: petclinic
+---
+apiVersion: v1
+kind: Service
+metadata:
+ name: petclinic-service
+ namespace: jenkins
+ labels:
+    app: petclinic
+    type: springboot
+spec:
+ selector: 
+    app: petclinic
+ ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+    nodePort: 31317
+ type: LoadBalancer
+ externalIPs:
+  - 192.168.99.101
