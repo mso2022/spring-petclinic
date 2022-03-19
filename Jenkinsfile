@@ -71,6 +71,20 @@ agent any
 				sh "trivy --cache-dir /tmp i 'mitesh51/ms-petclinic:1.0'"
 			}
 		}
+		stage('Approval') {
+						steps {
+						input 'Ready for Load Testing?'
+					}
 
+		}
+    	stage('minikube-Deployment') {
+    	    agent
+			{
+				label 'windows'
+			}
+    		steps {
+    			bat 'kubectl apply -f petclnic-deployment.yaml'
+    		}
+    	}
     }
 }
