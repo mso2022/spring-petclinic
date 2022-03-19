@@ -14,7 +14,7 @@ spec:
         app: petclinic
     spec:
      containers:
-        - name: react-app-bmi
+        - name: petclinic
           image: mitesh51/ms-petclinic:1.0 
  replicas: 1
  
